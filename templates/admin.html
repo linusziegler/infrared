@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>{{ page_title }}</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+    <script defer src="/static/admin.js"></script>
+</head>
+<body data-page="admin">
+    <main class="admin-page">
+        <section class="admin-panel">
+            <h1>Admin</h1>
+            <label for="cameraLabel">Label</label>
+            <input id="cameraLabel" />
+            <label for="cameraId">Camera ID</label>
+            <input id="cameraId" />
+            <label for="cameraPath">Stream Path</label>
+            <input id="cameraPath" placeholder="cam1" />
+            <label for="cameraIp">IP Address</label>
+            <input id="cameraIp" placeholder="192.168.1.101" />
+            <label class="checkbox-label" for="cameraActive">
+                <input id="cameraActive" type="checkbox" checked />
+                Active
+            </label>
+            <div class="button-row">
+                <button id="addButton" type="button">Save</button>
+                <button id="refreshButton" type="button">Refresh</button>
+            </div>
+            <div id="message" class="message"></div>
+        </section>
+
+        <section class="admin-panel">
+            <h1>Relay Settings</h1>
+            <label for="webrtcHost">Relay Host</label>
+            <input id="webrtcHost" placeholder="192.168.178.26 (leave empty to use current host)" />
+            <label for="webrtcPort">Relay WebRTC Port</label>
+            <input id="webrtcPort" type="number" min="1" max="65535" value="8889" />
+            <div class="button-row">
+                <button id="saveSettingsButton" type="button">Save Settings</button>
+                <button id="refreshSettingsButton" type="button">Refresh Settings</button>
+                <button id="testRelayButton" type="button">Test Relay</button>
+            </div>
+            <div id="settingsMessage" class="message"></div>
+            <div id="relayMessage" class="message"></div>
+        </section>
+
+        <section class="admin-panel">
+            <h1>Cameras</h1>
+            <div id="cameraList" class="camera-list"></div>
+        </section>
+    </main>
+</body>
+</html>

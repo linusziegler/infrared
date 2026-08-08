@@ -1,0 +1,248 @@
+:root {
+    color-scheme: dark;
+    --bg: black;
+    --green: #00ff66;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+@font-face {
+    font-family: "GamePocket";
+    src: url("GamePocket-Regular.ttf") format("truetype");
+    font-display: swap;
+}
+
+html, body {
+    margin: 0;
+    width: 100vw;
+    height: 100vh;
+    overflow: hidden;
+    background: var(--bg);
+    color: var(--green);
+    font-family: "GamePocket", "Courier New", Courier, monospace;
+    image-rendering: pixelated;
+}
+
+.grid {
+    display: grid;
+    width: 100vw;
+    height: 100vh;
+    grid-template-columns: repeat(2, 1fr);
+    grid-template-rows: repeat(2, 1fr);
+    gap: 3px;
+
+    padding: 3px;
+
+    background: var(--green);
+}
+
+.grid-page {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+}
+
+.tile {
+    position: relative;
+    overflow: hidden;
+    background: black;
+}
+
+.frame {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    display: block;
+    background: black;
+}
+
+.frame-embed {
+    border: 0;
+}
+
+.frame-video {
+    border: 0;  
+}
+
+.offline-state {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    color: var(--green);
+    background: black;
+    font-size: clamp(2rem, 4vw, 3rem);
+    text-transform: uppercase;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.tile.offline {
+    background: black;
+}
+
+.tile.offline .offline-state {
+    opacity: 1;
+}
+
+.tile.offline .frame {
+    opacity: 0;
+}
+
+.debug-log {
+    z-index: 2;
+    position: fixed;
+    left: 10px;
+    bottom: 10px;
+    margin: 0;
+    padding: 0;
+    color: var(--green);
+    font-size: 0.78rem;
+    line-height: 1.4;
+    white-space: pre-line;
+    pointer-events: none;
+    max-width: min(48ch, calc(100vw - 20px));
+}
+
+.tile-label {
+    position: absolute;
+    left: 20px;
+    top: 20px;
+    z-index: 2;
+    color: var(--green);
+    font-size: 2.2rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.tile-meta {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: end;
+    gap: 10px;
+    color: var(--green);
+    font-size: 0.85rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.tile-ip,
+.tile-latency {
+    min-width: 0;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.admin-page {
+    width: 100vw;
+    height: 100vh;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 16px;
+    padding: 16px;
+    background: black;
+    color: var(--green);
+}
+
+.admin-panel {
+    display: grid;
+    gap: 10px;
+    align-content: start;
+}
+
+.admin-panel h1 {
+    margin: 0 0 4px;
+    font-size: 1rem;
+    font-weight: 400;
+    text-transform: uppercase;
+}
+
+.admin-panel label {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+}
+
+.admin-panel input,
+.admin-panel button {
+    font: inherit;
+    color: var(--green);
+    background: black;
+    border: 1px solid rgba(0, 255, 102, 0.45);
+    padding: 8px 10px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.checkbox-label input {
+    width: auto;
+    margin: 0;
+}
+
+.admin-panel input {
+    width: 100%;
+}
+
+.button-row {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.message {
+    min-height: 1.2em;
+}
+
+.camera-list {
+    display: grid;
+    gap: 8px;
+}
+
+.camera-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: start;
+    padding: 8px 0;
+    border-bottom: 1px solid rgba(0, 255, 102, 0.2);
+}
+
+.camera-item strong,
+.camera-item code,
+.camera-item div {
+    color: var(--green);
+}
+
+.camera-item-controls {
+    display: flex;
+    gap: 8px;
+}
+
+.single-view-page {
+    width: 100vw;
+    height: 100vh;
+    background: var(--green);
+    padding: 3px;
+}
+
+.single-view-grid {
+    width: 100%;
+    height: 100%;
+}
+
+.single-view-grid .tile {
+    width: 100%;
+    height: 100%;
+}

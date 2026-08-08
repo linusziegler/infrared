@@ -1,0 +1,16 @@
+# Auto-generated relay config
+# Run on main machine: mediamtx mediamtx-relay.yml
+webrtc: true
+webrtcAddress: :8889
+webrtcLocalUDPAddress: :8189
+hls: false
+rtsp: true
+paths:
+  cam1:
+    source: rtsp://192.168.178.33:8554/cam1
+    sourceOnDemand: no
+    rtspTransport: tcp
+  cam2:
+    source: rtsp://192.168.178.27:8554/cam2
+    sourceOnDemand: no
+    rtspTransport: tcp
