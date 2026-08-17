@@ -115,14 +115,17 @@ function Get-KioskChromeWindow {
 
     foreach ($process in $processes) {
 
-        $pid = [uint32]$process.ProcessId
+        $processId = [uint32]$process.ProcessId
 
         try {
-            $p = Get-Process -Id $pid -ErrorAction SilentlyContinue
+            $chromeProcess = Get-Process `
+                -Id $processId `
+                -ErrorAction SilentlyContinue
 
-            if ($p -and $p.MainWindowHandle -ne 0) {
+            if ($chromeProcess -and
+                $chromeProcess.MainWindowHandle -ne 0) {
 
-                $hwnd = [IntPtr]$p.MainWindowHandle
+                $hwnd = [IntPtr]$chromeProcess.MainWindowHandle
 
                 if ([Win32]::IsWindowVisible($hwnd)) {
                     return $hwnd
@@ -152,8 +155,10 @@ function Set-KioskChromeForeground {
             continue
         }
 
+        # Restore the window
         [Win32]::ShowWindow($hwnd, 9) | Out-Null
 
+        # Get Chrome's UI thread
         [uint32]$chromeThreadId = 0
 
         [Win32]::GetWindowThreadProcessId(
@@ -161,8 +166,10 @@ function Set-KioskChromeForeground {
             [ref]$chromeThreadId
         ) | Out-Null
 
+        # Get our PowerShell thread
         $currentThreadId = [Win32]::GetCurrentThreadId()
 
+        # Temporarily attach input queues
         if ($chromeThreadId -ne 0 -and
             $currentThreadId -ne 0 -and
             $chromeThreadId -ne $currentThreadId) {
@@ -174,9 +181,11 @@ function Set-KioskChromeForeground {
             ) | Out-Null
         }
 
+        # Bring Chrome forward
         [Win32]::BringWindowToTop($hwnd) | Out-Null
         [Win32]::SetForegroundWindow($hwnd) | Out-Null
 
+        # Detach input queues
         if ($chromeThreadId -ne 0 -and
             $currentThreadId -ne 0 -and
             $chromeThreadId -ne $currentThreadId) {
@@ -190,6 +199,7 @@ function Set-KioskChromeForeground {
 
         Start-Sleep -Milliseconds 300
 
+        # Verify foreground window
         if ([Win32]::GetForegroundWindow() -eq $hwnd) {
             return $true
         }
